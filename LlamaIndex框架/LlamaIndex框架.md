@@ -1095,7 +1095,7 @@ nodes = parser.get_nodes_from_documents(md_docs)
 print(nodes)
 ```
 
-**HTML节点解析器：**&#x4F1A;解析原始HTML文件中的标签（p，span...）相邻相同的标签会合并
+**HTML节点解析器：** 会解析原始HTML文件中的标签（p，span...）相邻相同的标签会合并
 
 > 注意：LlamaIndex 的一些 `Reader`（数据连接器），尤其是那些专门为网页设计的（如 `BeautifulSoupWebReader`, `TrafilaturaReader`），在加载数据的阶段**就已经进行了 HTML 解析和内容提取**。它们可能配置为只提取主要的文章内容，并去除 HTML 标签，直接生成包含干净文本的 `Document` 对象。
 
@@ -1353,9 +1353,9 @@ print(response)
 
 将长文本拆分为更小的、连续的片段（如段落、固定长度的块），确保分割后的内容保持语义完整性，避免信息碎片化。
 
-**代码分割器：**&#x662F;专门用于处理源代码文件的工具，旨在将代码按逻辑结构（如函数、类、代码块）智能分割，同时保留语法完整性和上下文关联。
+**代码分割器：** 是专门用于处理源代码文件的工具，旨在将代码按逻辑结构（如函数、类、代码块）智能分割，同时保留语法完整性和上下文关联。
 
-https://github.com/grantjenks/py-tree-sitter-languages#license通过这个地址可以看到支持的编程语言。
+https://github.com/grantjenks/py-tree-sitter-languages#license 通过这个地址可以看到支持的编程语言。
 
 ```python
 pip install tree_sitter
@@ -1397,7 +1397,7 @@ nodes = parser.get_nodes_from_documents(documents)
 print(nodes)
 ```
 
-**<span style="color: inherit; background-color: rgb(247,105,100)">句子分割器(重点)</span>：**&#x4E13;门用于将文本按自然语言句子边界拆分的工具，适用于需要保留完整语义单元的 NLP 任务
+**<span style="color: inherit; background-color: rgb(247,105,100)">句子分割器(重点)</span>：** 专门用于将文本按自然语言句子边界拆分的工具，适用于需要保留完整语义单元的 NLP 任务
 
 ```python
 from llama_index.core import SimpleDirectoryReader
@@ -1419,11 +1419,16 @@ for node in nodes:
     print(node.text, "---"*10)
 ```
 
+** 合并流程如下图**
+
+
+
 ![](images/LlamaIndex框架-合并流程.png)
+**分割流程如下图**
 
 ![](images/LlamaIndex框架-合并流程-1.png)
 
-&#x20;                      **分割流程&#x20;**&#x20;                                                                    **合并流程**
+
 
 **句子窗口节点解析器：**
 
@@ -2475,7 +2480,7 @@ for node in extracted_nodes:
 
 * `SchemaLLMPathExtractor` 提取器
 
-&#x20;在schema中定义允许的实体类型、关系类型以及它们之间的联系。LLM将只抽取符合此schema的图数据。
+在schema中定义允许的实体类型、关系类型以及它们之间的联系。LLM将只抽取符合此schema的图数据。
 
 qwen模型对应提取实体关系效果不好，所以使用deepseek
 
