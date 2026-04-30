@@ -152,7 +152,7 @@ MCP Server 是一个轻量级的程序，它的唯一使命就是**暴露能力*
 pip install fastmcp mcp
 ```
 
-```shell
+```Python
 from fastmcp import FastMCP
 from typing import Annotated
 from pydantic import Field
@@ -815,19 +815,6 @@ if __name__ == "__main__":
 
 
 
-在五一之后会上线skills， opencode（Ai coding工具）安装、更好的使用AI conding、 项目相关的视频。
-
-
-
-
-
-**4-27三阶段结课，    5.6四阶段开课   微调、实战案例（文本模型微调、多模态模型的微调）**
-
-微调-》只能是在极端条件去使用（能用已有的技术去实现，就先不微调【1.数据准备】）
-
-
-
-7b 8b 模型能力不是特别好     量化
 
 
 

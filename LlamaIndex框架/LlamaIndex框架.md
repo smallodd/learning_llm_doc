@@ -2,7 +2,7 @@
 
 ![](images/LlamaIndex框架-image-10.png)
 
-**&#x20;一句话解释**
+**一句话解释**
 
 > **LlamaIndex 是一个用于构建 LLM 知识库问答（RAG）系统的框架，它让你可以把文档、数据库、网页等数据接入大模型，实现智能问答**。
 
@@ -3614,6 +3614,105 @@ else:
     print("❌ 流程失败")
 ```
 
+#### 存储架构演进
+##### 早期
+
+```mermaid
+flowchart TD
+    App[应用层<br/>LlamaIndex]
+
+    Cache[Redis<br/>缓存]
+    Vector[Milvus Lite<br/>向量检索]
+    DB[MySQL<br/>元数据]
+
+    App --> Cache
+    App --> Vector
+    App --> DB
+
+    style App fill:#e8f5e9
+    style Cache fill:#fff3e0
+    style Vector fill:#e3f2fd
+    style DB fill:#f3e5f5
+```
+##### 中期
+
+```mermaid
+flowchart TD
+    App[应用层<br/>LlamaIndex]
+
+    Router[检索编排层<br/>Hybrid Search]
+
+    Cache[Redis Cluster<br/>缓存]
+    Vector[Milvus Cluster<br/>向量库]
+    Object[MinIO<br/>原始文档]
+    DB[PostgreSQL<br/>业务元数据]
+
+    App --> Router
+    Router --> Cache
+    Router --> Vector
+    Router --> Object
+    Router --> DB
+
+    style App fill:#e8f5e9
+    style Router fill:#ede7f6
+    style Cache fill:#fff3e0
+    style Vector fill:#e3f2fd
+    style Object fill:#fce4ec
+    style DB fill:#f3e5f5
+```
+
+##### 后期
+```mermaid
+flowchart TD
+    User[用户请求]
+
+    Gateway[API Gateway]
+
+    App[应用服务集群<br/>LlamaIndex]
+
+    MQ[Kafka<br/>异步处理]
+
+    Query[检索编排层<br/>Router + Rerank]
+
+    Cache[Redis Cluster]
+    Vector[Milvus Cluster]
+    Search[Elasticsearch]
+    Object[S3 / MinIO]
+    DB[PostgreSQL HA]
+
+    Monitor[Prometheus + Grafana]
+    Auth[权限中心]
+
+    User --> Gateway
+    Gateway --> App
+    App --> Query
+    App --> MQ
+    App --> Auth
+
+    Query --> Cache
+    Query --> Vector
+    Query --> Search
+    Query --> Object
+    Query --> DB
+
+    App --> Monitor
+
+    style User fill:#f1f8e9
+    style Gateway fill:#fff8e1
+    style App fill:#e8f5e9
+    style MQ fill:#fce4ec
+    style Query fill:#ede7f6
+    style Cache fill:#fff3e0
+    style Vector fill:#e3f2fd
+    style Search fill:#e0f7fa
+    style Object fill:#f3e5f5
+    style DB fill:#f3e5f5
+    style Monitor fill:#f9fbe7
+    style Auth fill:#fbe9e7
+```
+
+
+
 ### 键值存储
 
 文档存储和索引存储的底层是使用的键值存储。（本质上是一个 Python 字典的包装）
@@ -3852,8 +3951,24 @@ print(res)
 如果是将RAG当作Agent的一个工具去使用，用查询引擎，记忆功能会在Agent实现；
 
 #### 🧠 背景对比：QueryEngine vs ChatEngine
+| 特性      | QueryEngine         | ChatEngine               |
+| ------- | ------------------- | ------------------------ |
+| 输入类型    | 单轮问题（字符串）           | 多轮对话（chat history + 新问题） |
+| 是否保留上下文 | 否（默认每次是新问题）         | 是（可存储对话上下文）              |
+| 使用场景    | 检索问答、摘要             | 多轮聊天、智能助手                |
+| 方法接口    | `.query(query_str)` | `.chat(message: str)`    |
 
 指定chat\_model来访问不同的聊天引擎。
+
+| 模式名称                          | 说明                                                     | 是否调用索引  | 是否重写问题 | 是否插入上下文 | 是否用工具/函数  |
+| ----------------------------- | ------------------------------------------------------ | ------- | ------ | ------- | --------- |
+| best（默认condense_plus_context） | 自动根据 LLM 能力选择 ReAct 或 OpenAI 函数代理。适用于支持函数调用的 GPT 模型。   | ✅       | ✅      | ✅       | ✅（自动选择）   |
+| condense_question             | 把多轮对话压缩成单个查询句，再传入 QueryEngine 处理。                      | ✅       | ✅      | ❌       | ❌         |
+| context                       | 直接用当前消息检索索引内容，将上下文插入到系统提示中，模拟“带文档”的对话。                 | ✅       | ❌      | ✅       | ❌         |
+| condense_plus_context         | 同时压缩问题并检索索引，将检索结果嵌入系统提示中，更强大的信息对齐方式。                   | ✅       | ✅      | ✅       | ❌         |
+| simple                        | 不访问索引，直接与 LLM 聊天，适用于纯闲聊或测试。                            | ❌       | ❌      | ❌       | ❌         |
+| react（已经移到Agent模块）            | 强制使用 ReAct 代理，基于工具链执行任务。适用于需要多步推理和插件调用的 LLM。           | ✅（通过工具） | ✅      | ✅       | ✅（ReAct）  |
+| openai（已经移到Agent模块）           | 强制使用 OpenAI 函数调用代理，依赖 gpt-3.5-turbo / gpt-4 的函数调用 API。 | ✅（通过工具） | ✅      | ✅       | ✅（OpenAI） |
 
 condense\_plus\_context：
 
