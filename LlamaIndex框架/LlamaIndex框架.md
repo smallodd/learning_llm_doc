@@ -4693,6 +4693,8 @@ asyncio.run(main())
 ## 绘制工作流
 
 ```python
+# 注意: 需要先安装 llama-index-utils-workflow 包  
+# pip install llama-index-utils-workflow
 # 导入对应模块
 from llama_index.utils.workflow import (
     draw_all_possible_flows,
@@ -4972,7 +4974,7 @@ asyncio.run(main())
 
 3.响应合成器生成结果
 
-```python
+``` python
 from llama_index.core import VectorStoreIndex, SimpleDirectoryReader
 from llama_index.retrievers.bm25 import BM25Retriever
 from llama_index.core.node_parser import SentenceSplitter
