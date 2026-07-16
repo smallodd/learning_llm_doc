@@ -71,7 +71,7 @@ HTTP 方法：GET/POST/PUT/DELETE
 
 特点：可以在路径显式可见，适合传递非敏感的筛选/分页条件；
 
-http://localhost:8000/user?age=18\&city=beijing\&page=1
+`http://localhost:8000/user?age=18&city=beijing&page=1`
 
 2.路径参数
 
@@ -79,7 +79,7 @@ http://localhost:8000/user?age=18\&city=beijing\&page=1
 
 特点：属于url路径的一部分，适合传递资源id等内容；
 
-http://localhost:8000/user/123
+`http://localhost:8000/user/123`
 
 3.请求体参数
 
@@ -1117,6 +1117,5 @@ async def upload_multiple_files(files: list[UploadFile]):
 详情请看后面网盘中的内容
 
 [fastapi项目案例.zip](files/FastAPI-fastapi项目案例.zip)
-
 
 

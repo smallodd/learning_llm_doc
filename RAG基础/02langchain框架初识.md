@@ -1210,13 +1210,13 @@ print(chain.invoke({"topic": "ice cream"}))
 
 ##### 2.1 核心特性
 
-![](images/072.png)
+> 图示资源 `images/072.png` 未包含在当前仓库中。
 
 ##### 2.2  主要实现类
 
 - `LangChain` 中几乎所有核心组件都实现了 `Runnable` 接口 
 
-![](images/073.png)
+> 图示资源 `images/073.png` 未包含在当前仓库中。
 
 - https://python.langchain.com/api_reference/core/runnables/langchain_core.runnables.base.Runnable.html#langchain_core.runnables.base.Runnable可以在这个网站中查询所有Runnable对应的方法 
 
@@ -2302,5 +2302,4 @@ if __name__ == "__main__":
     reload_response = legacy_predict("我回来了，我们之前都聊了一些什么?", SESSION_ID)
     print("\n恢复后的回答:", reload_response)
 ```
-
 

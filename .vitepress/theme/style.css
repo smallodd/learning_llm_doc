@@ -1,0 +1,102 @@
+:root {
+  --vp-c-brand-1: #0c6b5b;
+  --vp-c-brand-2: #16816d;
+  --vp-c-brand-3: #1c9a81;
+  --vp-c-brand-soft: rgba(12, 107, 91, 0.14);
+  --vp-font-family-base: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  --vp-font-family-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  --vp-home-hero-name-color: #0b4f43;
+  --vp-home-hero-name-background: transparent;
+}
+
+.VPNavBarTitle .title {
+  font-family: "Noto Sans SC", "PingFang SC", sans-serif;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.VPHome {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(229, 186, 105, 0.19), transparent 25rem),
+    radial-gradient(circle at 92% 18%, rgba(20, 128, 108, 0.15), transparent 28rem);
+}
+
+.VPHomeHero {
+  padding: 92px 24px 78px;
+}
+
+.VPHomeHero .name {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-size: clamp(3rem, 8vw, 5.8rem);
+  letter-spacing: -0.08em;
+}
+
+.VPHomeHero .text {
+  max-width: 760px;
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+  font-size: clamp(1.35rem, 3vw, 2.15rem);
+  line-height: 1.45;
+}
+
+.VPHomeHero .tagline {
+  max-width: 600px;
+  font-size: 1.05rem;
+  line-height: 1.8;
+}
+
+.VPFeature {
+  border-color: var(--vp-c-divider);
+  background: rgba(255, 255, 255, 0.48);
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.VPFeature:hover {
+  border-color: var(--vp-c-brand-2);
+  transform: translateY(-3px);
+}
+
+.VPDoc .content-container {
+  max-width: 860px;
+}
+
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3 {
+  font-family: "Noto Serif SC", "Source Han Serif SC", "Songti SC", serif;
+}
+
+.vp-doc h2 {
+  margin-top: 2.8rem;
+  padding-bottom: 0.45rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+}
+
+.vp-doc img {
+  display: block;
+  max-width: 100%;
+  margin: 1.5rem auto;
+  border: 1px solid var(--vp-c-divider);
+  border-radius: 6px;
+}
+
+.vp-doc table {
+  display: block;
+  overflow-x: auto;
+}
+
+html.dark .VPHome {
+  background:
+    radial-gradient(circle at 8% 8%, rgba(188, 139, 52, 0.13), transparent 25rem),
+    radial-gradient(circle at 92% 18%, rgba(37, 164, 136, 0.1), transparent 28rem);
+}
+
+html.dark .VPFeature {
+  background: rgba(21, 30, 29, 0.45);
+}
+
+@media (max-width: 640px) {
+  .VPHomeHero {
+    padding-top: 60px;
+    padding-bottom: 48px;
+  }
+}

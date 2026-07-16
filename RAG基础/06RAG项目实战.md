@@ -35,7 +35,7 @@
 
 #### 3. 后端
 
-![](./images/074.png)
+> 图示资源 `images/074.png` 未包含在当前仓库中。
 
 
 
@@ -1709,4 +1709,3 @@ class VectorStore:
 
         return parent_docs
 ```
-
