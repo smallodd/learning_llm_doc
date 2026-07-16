@@ -2,9 +2,10 @@
 layout: home
 
 hero:
-  name: LLM 学习笔记
-  text: 从知识检索到自主智能体
-  tagline: 一份持续整理的大模型应用开发知识库，覆盖 RAG、Agent、MCP 与常用框架实践。
+  text: 小奇的大模型学习笔记
+  tagline: |
+    一份持续整理的大模型应用开发知识库，
+    覆盖 RAG、Agent、MCP 与常用框架实践。
   actions:
     - theme: brand
       text: 从 RAG 开始

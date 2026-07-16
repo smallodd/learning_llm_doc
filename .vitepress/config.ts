@@ -2,7 +2,7 @@ import { defineConfig } from "vitepress";
 
 export default defineConfig({
   lang: "zh-CN",
-  title: "LLM 学习笔记",
+  title: "小奇的大模型学习笔记",
   description: "大语言模型、RAG、智能体与 AI 应用开发知识库",
   cleanUrls: true,
   themeConfig: {
